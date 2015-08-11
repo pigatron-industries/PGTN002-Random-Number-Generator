@@ -52,6 +52,7 @@ void setup()
     pinMode(segmentDP, OUTPUT);
     pinMode(rollPin, INPUT_PULLUP);
     randomSeed(analogRead(randomSeedPin));
+    getRandomNumber(100); //First random number isn't always random! (e.g. max 7 always gives 1)
 }
 
 
@@ -108,7 +109,7 @@ inline int getRandomNumber(int max)
 int getMaxNumber()
 {
     int analogueIn = analogRead(maxInput);
-    return analogueIn/(1024/MAX); //TODO may need to adjust for 3V supply
+    return (analogueIn/(1024/(MAX-1)))+2;
 }
 
 inline boolean buttonIsPressed()
